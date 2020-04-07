@@ -25,6 +25,7 @@ pipeline {
             //TODO:  clean up other old images
         }
         success {
+            echo 'success'
             // sh "docker tag my-rust-lib:latest mohanliucialfo/rust_sample:${BUILD_ID}"
             // sh "docker push mohanliucialfo/rust_sample:${BUILD_ID}"
         }
