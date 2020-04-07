@@ -1,19 +1,19 @@
 pipeline {
-    agent none
+    agent { dockerfile true }
     stages {
         stage('environment setup') {
             steps {
-                sh 'docker --verision'
+                sh 'ls -al'
             }
         }
-        stage('build') {
-            steps {
-                sh "docker build -t rustlings:${BUILD_ID} ."
-            }
-        }
+        // stage('build') {
+        //     steps {
+        //         sh "docker build -t rustlings:${BUILD_ID} ."
+        //     }
+        // }
         stage('tests'){
             steps {
-                sh "docker run rustlings:${BUILD_ID} cargo test"
+                sh "cargo test"
             }
         }
     }
@@ -25,8 +25,8 @@ pipeline {
             //TODO:  clean up other old images
         }
         success {
-            sh "docker tag my-rust-lib:latest mohanliucialfo/rust_sample:${BUILD_ID}"
-            sh "docker push mohanliucialfo/rust_sample:${BUILD_ID}"
+            // sh "docker tag my-rust-lib:latest mohanliucialfo/rust_sample:${BUILD_ID}"
+            // sh "docker push mohanliucialfo/rust_sample:${BUILD_ID}"
         }
         failure {
             echo 'This will run only if failed'
